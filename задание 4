@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace pr15
+{
+    public class Book
+    {
+        private string[] chapters;
+        public Book(int chapterCount = 10)
+        {
+            chapters = new string[chapterCount];
+        }
+        public string this[int index]
+        {
+            get
+            {
+                if (index >= 0 && index < chapters.Length)
+                {
+                    return chapters[index];
+                }
+                return null;
+            }
+            set
+            {
+                if (index >= 0 && index < chapters.Length)
+                {
+                    chapters[index] = value;
+                }
+            }
+        }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < chapters.Length; i++)
+            {
+                if (chapters[i] != null)
+                {
+                    sb.AppendLine($"{i + 1}. {chapters[i]}");
+                }
+            }
+            return sb.ToString();
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var book = new Book();
+            book[0] = "Введение";
+            book[1] = "Глава 1";
+            Console.WriteLine(book[0]);
+            Console.WriteLine(book);
+        }
+    }
+}
