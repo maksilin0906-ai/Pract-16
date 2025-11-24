@@ -1,0 +1,72 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace pr15
+{
+    public class Counter
+    {
+
+
+        public string Name { get; }
+        private int value;
+
+        public int Value
+        {
+            get { return value; }
+            set { this.value = value; }
+        }
+
+        public Counter(string name, int initialValue)
+        {
+            Name = name;
+            Value = initialValue;
+        }
+
+        public static Counter operator +(Counter counter, int increment)
+        {
+            return new Counter(counter.Name, counter.Value + increment);
+        }
+
+        public int this[string key]
+        {
+            get
+            {
+                if (key == "value")
+                {
+                    return Value;
+                }
+                throw new ArgumentException("Неверный ключ");
+            }
+            set
+            {
+                if (key == "value")
+                {
+                    Value = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Неверный ключ");
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}: {Value}";
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var c = new Counter("Счётчик", 10);
+            c = c + 5;
+            Console.WriteLine(c);
+
+
+        }
+    }
+}
